@@ -30,8 +30,9 @@ namespace GamesInfo.API.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            double refetchTimeInSec = Convert.ToDouble(Startup.Configuration["refetchTimeInSec"]);
             _timer = new Timer(FetchGames, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(10));
+                TimeSpan.FromSeconds(refetchTimeInSec));
 
             return Task.CompletedTask;
         }

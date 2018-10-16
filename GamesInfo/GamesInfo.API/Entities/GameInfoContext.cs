@@ -18,9 +18,11 @@ namespace GamesInfo.API.Entities
             var client = new MongoClient(Startup.Configuration["MongoDB:ConnectionString"]);
             _db = client.GetDatabase(Startup.Configuration["MongoDB:Database"]);
 
-            // Create Collection if does not exist
-            if(!CollectionExists("Games"))
-                _db.CreateCollection("Games");
+            // Drop Collection if exists
+            if (CollectionExists("Games"))
+                _db.DropCollection("Games");
+
+            _db.CreateCollection("Games");
 
         }
 
